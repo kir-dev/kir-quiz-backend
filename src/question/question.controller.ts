@@ -30,6 +30,11 @@ export class QuestionController {
     return this.questionService.findOne(id);
   }
 
+  @Get('random')
+  getRandom() {
+    return this.questionService.getRandom();
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,

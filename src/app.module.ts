@@ -6,7 +6,11 @@ import { AppService } from './app.service';
 import { QuestionModule } from './question/question.module';
 
 @Module({
-  imports: [QuestionModule, AnswerModule, PrismaModule.forRoot()],
+  imports: [
+    QuestionModule,
+    AnswerModule,
+    PrismaModule.forRoot({ isGlobal: true }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

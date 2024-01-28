@@ -15,6 +15,17 @@ export class QuestionService {
     return await this.prisma.question.findMany();
   }
 
+  async getRandom() {
+    const totalQuestions = await this.prisma.question.count();
+    const randomOffset = Math.floor(Math.random() * totalQuestions);
+
+    const randomQuestion = await this.prisma.question.findFirst({
+      skip: randomOffset,
+    });
+
+    return randomQuestion;
+  }
+
   async findOne(id: string) {
     return await this.prisma.question.findUnique({ where: { id } });
   }
