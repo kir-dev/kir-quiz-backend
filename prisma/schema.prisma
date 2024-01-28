@@ -6,3 +6,18 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Question {
+  id      String   @id @default(uuid())
+  text    String
+  image   String?
+  answers Answer[]
+}
+
+model Answer {
+  id         String   @id @default(uuid())
+  text       String
+  correct    Boolean
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+}
