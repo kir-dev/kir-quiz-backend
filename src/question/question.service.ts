@@ -56,13 +56,19 @@ export class QuestionService {
       where: {
         id: randomId,
       },
+      include: {
+        answers: true,
+      },
     });
 
     return randomQuestion;
   }
 
   async findOne(id: string) {
-    return await this.prisma.question.findUnique({ where: { id } });
+    return await this.prisma.question.findUnique({
+      where: { id },
+      include: { answers: true },
+    });
   }
 
   async update(
