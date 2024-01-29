@@ -9,7 +9,7 @@ datasource db {
 
 model Question {
   id      String   @id @default(uuid())
-  text    String
+  text    String   @unique
   image   String?
   answers Answer[]
 }
