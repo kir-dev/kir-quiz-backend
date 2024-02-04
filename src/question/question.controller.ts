@@ -7,6 +7,7 @@ import {
   ParseFilePipe,
   Patch,
   Post,
+  Query,
   UploadedFile,
   UseFilters,
   UseInterceptors,
@@ -43,8 +44,8 @@ export class QuestionController {
   }
 
   @Get('random')
-  getRandom() {
-    return this.questionService.getRandom();
+  getRandom(@Query('number') nrOfQuestions: number) {
+    return this.questionService.getRandom(nrOfQuestions);
   }
 
   @Get(':id')

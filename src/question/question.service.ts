@@ -30,14 +30,14 @@ export class QuestionService {
   }
 
   async findAll() {
-    return await this.prisma.question.findMany({
+    return this.prisma.question.findMany({
       include: {
         answers: true,
       },
     });
   }
 
-  async getRandom() {
+  async getRandom(nrOfQuestions: number) {
     const allQuestions = await this.prisma.question.findMany({
       select: {
         id: true,
@@ -49,23 +49,27 @@ export class QuestionService {
     }
 
     const ids = allQuestions.map((question) => question.id);
-    const randomIndex = Math.floor(Math.random() * ids.length);
-    const randomId = ids[randomIndex];
+    const randomQuestions = [];
 
-    const randomQuestion = await this.prisma.question.findUnique({
-      where: {
-        id: randomId,
-      },
-      include: {
-        answers: true,
-      },
-    });
+    for (let i = 0; i < nrOfQuestions; i++) {
+      const randomIndex = Math.floor(Math.random() * ids.length);
+      const randomId = ids[randomIndex];
+      const randomQuestion = await this.prisma.question.findUnique({
+        where: {
+          id: randomId,
+        },
+        include: {
+          answers: true,
+        },
+      });
+      randomQuestions.push(randomQuestion);
+    }
 
-    return randomQuestion;
+    return randomQuestions;
   }
 
   async findOne(id: string) {
-    return await this.prisma.question.findUnique({
+    return this.prisma.question.findUnique({
       where: { id },
       include: { answers: true },
     });
@@ -102,6 +106,6 @@ export class QuestionService {
   }
 
   async remove(id: string) {
-    return await this.prisma.question.delete({ where: { id } });
+    return this.prisma.question.delete({ where: { id } });
   }
 }
