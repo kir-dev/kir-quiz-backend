@@ -6,9 +6,26 @@ import { PrismaService } from 'nestjs-prisma';
 import { join } from 'path';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { createQuestionWithAnswersDTO } from './dto/create-question-with-answers.dto';
 
 @Injectable()
 export class QuestionService {
+  async createQuestionWithAnswers(
+    createQuestionWithAnswersDTO: createQuestionWithAnswersDTO,
+  ) {
+    const answers = createQuestionWithAnswersDTO.answers;
+    delete createQuestionWithAnswersDTO.answers;
+    const question = await this.create(createQuestionWithAnswersDTO);
+    for (const answer of answers) {
+      await this.prisma.answer.create({
+        data: {
+          text: answer.text,
+          questionId: question.id,
+          correct: answer.correct,
+        },
+      });
+    }
+  }
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createQuestionDto: CreateQuestionDto, filename?: string) {

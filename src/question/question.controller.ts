@@ -17,6 +17,7 @@ import { IconInterceptor, IconValidators } from 'src/util/iconHelper';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { QuestionService } from './question.service';
+import { createQuestionWithAnswersDTO } from './dto/create-question-with-answers.dto';
 
 @Controller('question')
 export class QuestionController {
@@ -36,6 +37,14 @@ export class QuestionController {
     file?: Express.Multer.File,
   ) {
     return this.questionService.create(createQuestionDto, file?.filename);
+  }
+  @Post('answer')
+  createQuestionWithAnswers(
+    @Body() createQuestionWithAnswersDto: createQuestionWithAnswersDTO,
+  ) {
+    return this.questionService.createQuestionWithAnswers(
+      createQuestionWithAnswersDto,
+    );
   }
 
   @Get()
