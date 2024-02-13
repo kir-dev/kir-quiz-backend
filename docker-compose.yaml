@@ -13,6 +13,8 @@ services:
     restart: always
     networks:
       - kirkuty-network
+    volumes:
+      - kirkuty_images:/app/static
     depends_on:
       - db
 
@@ -28,6 +30,9 @@ services:
 
 volumes:
   kirkuty_db_folder:
+    external: true
+
+  kirkuty_images:
     external: true
 
 networks:
