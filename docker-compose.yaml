@@ -1,6 +1,6 @@
 version: '3.8'
 
-name: lepedo
+name: kirkuty
 
 services:
   app:
@@ -12,7 +12,7 @@ services:
       - .env
     restart: always
     networks:
-      - lepedo-network
+      - kirkuty-network
     depends_on:
       - db
 
@@ -22,13 +22,13 @@ services:
       - .env
     restart: always
     volumes:
-      - lepedo_db_folder:/var/lib/postgresql/data
+      - kirkuty_db_folder:/var/lib/postgresql/data
     networks:
-      - lepedo-network
+      - kirkuty-network
 
 volumes:
-  lepedo_db_folder:
+  kirkuty_db_folder:
     external: true
 
 networks:
-  lepedo-network:
+  kirkuty-network:

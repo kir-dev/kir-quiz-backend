@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install --frozen-lockfile
+RUN npm ci
 
 RUN npm run build
 
