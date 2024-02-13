@@ -4,6 +4,7 @@ module.exports = {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
     sourceType: 'module',
+    ecmaVersion: 2021
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
   extends: [
@@ -14,6 +15,7 @@ module.exports = {
   env: {
     node: true,
     jest: true,
+    es6: true
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
